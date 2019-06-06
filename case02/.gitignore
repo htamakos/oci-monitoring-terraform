@@ -1,0 +1,5 @@
+.terraform/
+env-vars
+*.log
+*.terraform.*
+terraform.*
