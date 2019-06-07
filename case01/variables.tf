@@ -20,3 +20,8 @@ variable "ons_sub_endpoint" {}
 variable "exec_cpu_load" {
   default = false
 }
+
+variable "stress_time" {
+  default = 600
+}
+

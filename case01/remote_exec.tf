@@ -14,7 +14,8 @@ resource"null_resource" "load_cpu" {
     }
 
     inline = [
-      "openssl speed -multi `grep processor /proc/cpuinfo|wc -l`" 
+      "sudo yum install -y stress",
+      "stress --cpu `grep processor /proc/cpuinfo|wc -l` -t ${var.stress_time}"
     ]
   }
 }
