@@ -11,17 +11,6 @@ module "image" {
   compartment_id = "${oci_identity_compartment.compartment.id}"
 }
 
-module "instance" {
-  source                  = "../modules/compute"
-  version                 = "0.0.1"
-  compartment_id          = "${oci_identity_compartment.compartment.id}"
-  instance_name           = "bastion"
-  subnet_id               = "${module.networking.subnet_id}"
-  ssh_public_key          = "${var.ssh_public_key}"
-  instance_image_id       = "${module.image.image_id}"
-  pub_instance_private_ip = "172.168.1.12"
-}
-
 module "auto_scaling" {
   source            = "../modules/autoscaling"
   version           = "0.0.1"
@@ -45,10 +34,6 @@ module "monitoring" {
   compartment_id    = "${oci_identity_compartment.compartment.id}"
   topic_id = "${module.notification.topic_id}"
   instance_pool_id = "${module.auto_scaling.instance_pool_id}"
-}
-
-output "bastion_ip" {
-  value = "${module.instance.instance_gip}"
 }
 
 output "instance_pool_instance_ip" {
