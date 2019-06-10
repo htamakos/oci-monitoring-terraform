@@ -1,4 +1,4 @@
-data "template_file" "graphana_datasources" {
+data "template_file" "grafana_datasources" {
   template = "${file("templates/oci_datasource.yaml")}"
 
   vars = {
@@ -91,7 +91,7 @@ resource "null_resource" "post_oci_stream" {
   }
 }
 
-resource "null_resource" "graphana_datasources" {
+resource "null_resource" "grafana_datasources" {
   count = "${var.provision ? 1 : 0}"
 
   triggers {
@@ -102,12 +102,12 @@ resource "null_resource" "graphana_datasources" {
     connection {
       agent       = false
       timeout     = "30m"
-      host        = "${module.compute_graphana.instance_gip}"
+      host        = "${module.compute_grafana.instance_gip}"
       user        = "opc"
       private_key = "${var.ssh_private_key}"
     }
 
-    content     = "${data.template_file.graphana_datasources.rendered}"
+    content     = "${data.template_file.grafana_datasources.rendered}"
     destination = "/tmp/oci_datasource.yaml"
   }
 }
@@ -120,14 +120,14 @@ resource "null_resource" "provision_grafana" {
   }
 
   depends_on = [
-    "null_resource.graphana_datasources",
+    "null_resource.grafana_datasources",
   ]
 
   provisioner "remote-exec" {
     connection {
       agent       = false
       timeout     = "30m"
-      host        = "${module.compute_graphana.instance_gip}"
+      host        = "${module.compute_grafana.instance_gip}"
       user        = "opc"
       private_key = "${var.ssh_private_key}"
     }
