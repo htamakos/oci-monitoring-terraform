@@ -56,6 +56,26 @@ resource "oci_core_security_list" "pub_sl" {
     source   = "${var.public_cidr_block}"
   }
 
+  ingress_security_rules {
+    protocol = 6
+    source   = "${var.public_cidr_block}"
+
+    tcp_options {
+      max = 80
+      min = 80
+    }
+  }
+
+  ingress_security_rules {
+    protocol = 6
+    source   = "${var.public_cidr_block}"
+
+    tcp_options {
+      max = 3000
+      min = 3000
+    }
+  }
+
   vcn_id       = "${oci_core_vcn.vcn.id}"
   display_name = "${var.name_prefix}_pub_sl"
 }

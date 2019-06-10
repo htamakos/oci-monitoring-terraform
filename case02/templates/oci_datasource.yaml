@@ -1,0 +1,14 @@
+apiVersion: 1
+
+datasources:
+- name: oci-datasource 
+  type: oci-datasource
+  access: proxy
+  orgId: 1
+  isDefault: true
+  editable: true 
+  jsonData:
+    defaultRegion: "${region}"
+    tenancyOCID: "${tenancy_ocid}"
+    environment: "OCI Instance"
+

@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+require 'json'
+require "open3"
+
+data = File.read(ARGV.first).split("\n").map{ |x| JSON.parse(x) }
+           .select { |x| x["code"] == "502"  }
+
+data.each do |x|
+  Open3.popen3('/root/bin/oci streaming stream message put --stream-id ${stream_id} --messages "[{ \"key\": \"`echo nginx | base64`\", \"value\": \"`echo server_error | base64`\" }]"') do |i, o, e, w|
+    o.each do |line| puts line end
+    e.each do |line| puts line end
+  end
+end

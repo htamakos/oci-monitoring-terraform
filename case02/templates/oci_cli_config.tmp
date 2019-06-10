@@ -1,0 +1,7 @@
+[DEFAULT]
+user=${user}
+fingerprint=${fingerprint}
+key_file=~/.oci/oci_api_key.pem
+tenancy=${tenancy_ocid}
+region=${region}
+compartment-id=${compartment_id}
