@@ -2,7 +2,7 @@
 ## Case02: Streaming + Grafana 
 Example of detecting logs when Web server outputs Server Error, pushing to OCI streaming, and monitoring with monitoring visualization tool (Grafana)
 
-![](../autoscaling_with_alarm_notifications.png)
+![](../streaming_grafana.png)
 
 ## How to run
 
